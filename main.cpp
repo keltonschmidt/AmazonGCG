@@ -33,6 +33,7 @@ string pattern[6] = {"", "XXXXXXXX0XX00X0", "XX0XXX0XXXXX0XX", "XXXXX0X0XXX0XXX"
 string currentdate();
 int menu();
 int codesoutput();
+void initMenu();
 
 
 int main() {
@@ -51,10 +52,8 @@ int main() {
 	mydir2 = "Results//" + date;
 	mkdir(mydir2.c_str());
 	
-	/*   Do un titolo iniiale alla finestra   */	
-	cout << "AMAZON GIFTCARDS GENERATOR" << endl;
-	cout << "Coded by KeltonSchmidt & co." << endl;
-	cout << endl;
+	/*   Mostro a schermo la parte iniziale del menu'   */
+	initMenu();
 	
 	/*   Avvio la funzione del menu in modo che ottenga numero del pattern e dei codici da generare   */
 	int patternnum = menu();
@@ -108,8 +107,12 @@ int main() {
 	/*   Trovo la dimensione da utilizzare per la funzione randomica   */
 	x = sizeof(b) - 1;														//   Si riferisce alle lettere
     y = sizeof(c) - 1;														//   Si riferisce ai numeri
+    
+    
+    /*   Inizio il conteggio dei milliSecondinda mostrare alla fine   */
+    clock_t t1, t2;
+	t1 = clock();
 
-	
     /*   Utilizzo la funzione randomica e genero singolarmente ogni carattere alfanumerico per aggiungerlo all'array da stampare e ripulire   */
     for(j = 0; j < codenumber; j++)
     {
@@ -138,6 +141,12 @@ int main() {
                 	cout << endl;
 		}
     }
+    
+    
+    t2 = clock();																						// Termino il conteggio per avere la differenza in mS
+	cout << endl << "Codes generated in : " << (t2-t1) / ((double)CLOCKS_PER_SEC) << "sec" << endl;
+	cout << "You can find them in the following path: " << path << endl;
+	system("pause");
     
 	return 0;
 }
@@ -204,4 +213,20 @@ int menu()
 	}
 
 	return patternnumber;
+}
+
+void initMenu() {
+	
+	/*   Do un titolo iniziale alla finestra   */	
+	cout << '\t' << '\t' << "      " << "---------------------------------" << endl;
+	cout << '\t' << '\t' << "      " << "|   AMAZON GIFTCARDS GENERATOR  |" << endl;
+	cout << '\t' << '\t' << "      " << "|  Coded by KeltonSchmidt & co. |" << endl;
+	cout << '\t' << '\t' << "      " << "---------------------------------" << endl;
+	cout << endl;
+	
+	cout << '\t' << '\t' << '\t' << '\t' << "DISCLAIMER:" << endl;
+	cout << "               This product has been created for educational          " << endl;
+	cout << "             purposes only. Any illegal action performed with          " << endl;
+	cout << "                    this tool is to be imputed to you.          " << endl;
+	cout << endl;
 }
